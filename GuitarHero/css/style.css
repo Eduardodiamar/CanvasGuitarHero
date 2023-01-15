@@ -1,0 +1,57 @@
+.dev{
+    position: absolute;
+    top: 5%;
+    left: 60%;
+    border: solid red;
+    width: 500px;
+}
+
+
+/* MENU STYLES  */
+
+.header{
+    background-color: thistle;
+}
+.main{
+    background-color: thistle;
+    height: 800px;
+    width: 900px;
+    color: white;
+}
+.optionMenu{
+    font-size: 1.5em;
+    background-color: whitesmoke;
+    color: thistle;
+    border: solid 2px plum;
+    height: 50px;
+}
+.controllersGuide{   
+    font-size: 1.5em;
+    background-color: whitesmoke;
+    color: thistle;
+    border: solid 2px plum;
+    height: 50px;
+}
+
+table {
+    width: 80%;
+    margin: 1rem auto;
+    border-collapse: collapse;
+    border: 2px solid white;
+
+  }
+  
+  th, td {
+    padding: 0.5rem;
+    text-align: left;
+    border: 2px solid white;
+  }
+  
+  th {
+    
+    text-align: center;
+    background-color: black
+  }
+  tr:hover {
+    background-color: #000000;
+  }
