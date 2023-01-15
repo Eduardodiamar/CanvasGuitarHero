@@ -32,6 +32,7 @@ let isGameSet = false;
 let isOptions = false;
 let keyLimitState = false;
 let isInLeaderboard = false;
+let isTableGenerated = false;
 // Hiden Elements 
 document.getElementById('menu1').style.display = 'none'
 document.getElementById('menu2').style.display = 'none'
@@ -127,6 +128,9 @@ document.onkeyup = (k) => {
             document.getElementById('menu0').style.display = 'block'
             document.getElementById('menu1').style.display = 'none'
             document.getElementById('menu4').style.display = 'none'
+            if (isTableGenerated) {
+                deleteTable()
+            }
             console.log('esc');
 
         }
@@ -134,7 +138,7 @@ document.onkeyup = (k) => {
         if(k.key === 'Enter'){
             dificultySelector('startGame')
             console.log('start game');
-            document.location.href= '/game.html'
+            document.location.href= '../html/game.html'
         }
 
     }
@@ -336,16 +340,17 @@ function setLeaderboard(){
     }
 
     leaderboard.sort(function(a, b) {
-        if (a.difficulty === b.difficulty) {
-          return b.score - a.score;
+        if (b.score === a.score) {
+          return b.difficulty.localeCompare(a.difficulty);
         } else {
-          return a.difficulty - b.difficulty;
+          return b.score - a.score;
         }
       });
       console.log(leaderboard);
 }
 //IA STUFF XD
 function generateTable(data) {
+    isTableGenerated = true
     var table = document.createElement("table");
     var thead = document.createElement("thead");
     var tbody = document.createElement("tbody");
@@ -374,5 +379,12 @@ function generateTable(data) {
   
     // Append table to body
     document.body.appendChild(table);
+  }
+
+  function deleteTable() {
+    var table = document.getElementsByTagName("table")[0];
+    if (table) {
+      table.parentNode.removeChild(table);
+    }
   }
   

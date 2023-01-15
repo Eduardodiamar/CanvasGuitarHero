@@ -64,6 +64,8 @@ let maxStreak = 0;
 let once = 1; // functional condition 
 let idCounter = 0; // generated tiles id
 let isPlaying = true;
+let isGameOver = false;
+
 
 function generateNewColors() {
         let ranColorGen = Math.floor(Math.random() * 4);
@@ -77,19 +79,15 @@ function generateNewColors() {
             case 1:
                 numToColor = "green"
                 xByColor = 300;
-                
                 break;
             case 2:
                 numToColor = "orange"
                 xByColor = 500;
-
                 break;
             case 3:
                 numToColor = "blue"
                 xByColor = 700;
-
                 break;
-        
             default:
                 //empty
                 break;
@@ -99,21 +97,46 @@ function generateNewColors() {
         console.log(colorsList);
     // console.log(colorsList);
 }
-function createGenFrame() {
+function createEmptyFrame() {
     context.fillStyle = "darkgrey";
-    context.fillRect(0, 0, 900, 800);
+    context.fillRect(0, 0, 900, 1800);
 
     context.fillStyle = "black";
     context.fillRect(0, 670, 900, 130);
-    // context.fillRect(0, 0, 100, 900);
-    context.fillRect(100, 0, 1, 900);
-    context.fillRect(200, 0, 1, 900);
-    context.fillRect(300, 0, 1, 900);
-    context.fillRect(400, 0, 1, 900);
-    context.fillRect(500, 0, 1, 900);
-    context.fillRect(600, 0, 1, 900);
-    context.fillRect(700, 0, 1, 900);
-    context.fillRect(800, 0, 1, 900);
+
+    context.fillStyle = "white";
+    context.font = "bold 20px sans-serif";
+    if (multiplier === 2) {
+        context.fillStyle = "black";
+    context.font = "bold 22px sans-serif";
+
+    }else if (multiplier === 4) {
+        context.fillStyle = "MediumVioletRed";
+    context.font = "bold 24px sans-serif";
+        
+    }else if(multiplier === 8){
+        context.fillStyle = "red";
+        context.font = "bold 26px sans-serif";
+
+    }
+    context.fillText("X" + multiplier, 50,840)
+    context.font = "bold 22px sans-serif";
+    context.fillStyle = "white";
+
+    context.fillText("Score:" + score, 120,840)
+    context.fillText("Max Streak: " + maxStreak, 580,840)
+    context.fillText("Streak: " + streak, 760,840)
+}
+function createGenFrame() {
+    createEmptyFrame()
+    context.fillRect(100, 0, 1, 800);
+    context.fillRect(200, 0, 1, 800);
+    context.fillRect(300, 0, 1, 800);
+    context.fillRect(400, 0, 1, 800);
+    context.fillRect(500, 0, 1, 800);
+    context.fillRect(600, 0, 1, 800);
+    context.fillRect(700, 0, 1, 800);
+    context.fillRect(800, 0, 1, 800);
 
     for (let i = 0; i < colorsList.length; i++) {
 
@@ -192,51 +215,51 @@ document.onkeyup = (e) => {
     } else if (e.key === buttons[3]) {
         buttonPressed(4);
     }
-    else if (!isPlaying && e.key ==='Escape') {
+    else if (e.key ==='Escape'&& (!isPlaying || isPaused) ) {
         buttonPressed(5);
     }else if(e.key === 'p' || e.key === 'P')
     {
-        console.log('PAUSA');
-        !isPaused? stopPlaying() : resumePlaying()
+        buttonPressed(6);
+    }else if((e.key === 'r' || e.key === 'R') && (!isPlaying || isPaused)){
+        buttonPressed(7);
     }
 }
 function buttonPressed(button){
     switch (button) {
         case 1:
-            
                 let condition = colorsList.some(function(element){
-                    return element.axisY > 670 && element.color ==='red'
+                    return element.axisY > 570 && element.color ==='red'
                   })
                   console.log(condition);
-
                   condition? scoreUp(): scoreDown()
-            
             break;
         case 2:
-            
                 let condition2 = colorsList.some(function(element){
-                    return element.axisY > 670 && element.color ==='green'
+                    return element.axisY > 570 && element.color ==='green'
                   })
                   condition2? scoreUp(): scoreDown()
-            
             break;
         case 3:
                  let condition3 = colorsList.some(function(element){
-                    return element.axisY > 670 && element.color ==='orange'
+                    return element.axisY > 570 && element.color ==='orange'
                   })
                   condition3? scoreUp(): scoreDown()
             break;
         case 4:
                 let condition4 = colorsList.some(function(element){
-                    return element.axisY > 670 && element.color ==='blue'
+                    return element.axisY > 570 && element.color ==='blue'
                   })
                   condition4? scoreUp(): scoreDown()
             break;
         case 5:
-            document.location.href= '/tempIndex.html'
-            
+            document.location.href= '../html/tempIndex.html'
             break;
-    
+        case 6:
+            !isPaused? stopPlaying() : resumePlaying()
+            break;
+        case 7:
+            location.reload()
+            break;
         default:
             //empty
             break;
@@ -255,8 +278,13 @@ function scoreUp() {
                 multiplier = 2;
                 console.log('Multi ->'+multiplier);
     
-            }else if (streak >=20) {
+            }else if (streak >=20 && streak <40) {
                 multiplier = 4;
+                console.log('Multi ->'+multiplier);
+                
+            
+            }else if (streak >=40) {
+                multiplier = 8;
                 console.log('Multi ->'+multiplier);
                 
             }
@@ -290,6 +318,7 @@ function scoreDown() {
 
 //Stop Intervals
 function stopPlaying() {
+    
     pauseScreen()
     isPaused = true
 
@@ -302,14 +331,17 @@ function stopPlaying() {
 }
 
 function resumePlaying() {
+
+    if(isPlaying){
     isPaused = false
 
-    //Check don't allow more than 1 click
-    setInterval(generateNewColors,difficultySpeed);
-    setInterval(moveRandomTiles,10)
-    setInterval(timer,1000)
+        setInterval(generateNewColors,difficultySpeed);
+        setInterval(moveRandomTiles,10)
+        setInterval(timer,1000)
+    }
+    
 }
-let time = 20
+let time = 30
 function timer() {
     if (time <10){
         document.getElementById('timer').innerHTML = '00:0'+time
@@ -317,6 +349,7 @@ function timer() {
     document.getElementById('timer').innerHTML = '00:'+time
     }
     if(time == 0) {
+        // isGameOver = true;
         stopPlaying()
         isPlaying = false;
         if(score > 0) saveResults()
@@ -358,6 +391,8 @@ function saveResults() {
     
 }
 function endScreen() {
+    delCanvas()
+    createEmptyFrame()
     context.fillStyle = "plum";
     context.strokeStyle = "white";
 
@@ -370,24 +405,49 @@ function endScreen() {
     context.fillText("Max streak: " + maxStreak, 350,400)
     context.fillStyle = "white";
     
-    context.fillRect(350, 500, 200, 50);
-    context.fillStyle = "plum";
-
-    context.fillText("Home", 414,530)
-}
-function pauseScreen() {
-    context.fillStyle = "plum";
-    context.strokeStyle = "white";
-
-    context.fillRect(250, 200, 400, 200);
-    context.fillStyle = "white";
-
-    context.font = "bold 48px sans-serif";
-    context.fillText("PAUSE", 370,270)
-    context.fillStyle = "white";
-    context.fillRect(400, 315, 100, 50);
+    context.fillRect(350, 480, 80, 50);
+    context.fillRect(450, 480, 80, 50);
     context.fillStyle = "plum";
     context.font = "bold 24px sans-serif";
 
-    context.fillText("P", 445,350)
+    context.fillText("ESC", 365,512)
+    context.fillText("R", 480,512)
+
+    context.fillText("ESC - Return to home Screen", 250,710)
+    context.fillText("R - Restart Game", 250,735)
+}
+function pauseScreen() {
+    delCanvas()
+    createEmptyFrame()
+    context.fillStyle = "plum";
+    context.strokeStyle = "white";
+
+    context.fillRect(250, 200, 400, 300);
+    context.fillStyle = "white";
+    context.fillRect(310, 400, 80, 50);
+    context.fillRect(410, 400, 80, 50);
+    context.fillRect(510, 400, 80, 50);
+    context.font = "bold 48px sans-serif";
+    context.fillText("PAUSE", 370,270)
+    context.fillStyle = "white";
+    context.fillStyle = "plum";
+    context.font = "bold 24px sans-serif";
+
+    context.fillText("P", 342,432)
+    context.fillText("R", 442,432)
+    context.fillText("ESC", 525,432)
+
+    context.fillText("P - Resume Game", 250,710)
+    context.fillText("R - Restart Game", 250,735)
+    context.fillText("ESC - Return to home Screen", 250,760)
+
+    context.fillStyle = "white";
+    context.font = "bold 22px sans-serif";
+
+    context.fillText("X" + multiplier, 50,840)
+    context.fillText("Score:" + score, 120,840)
+
+    context.fillText("Max Streak: " + maxStreak, 580,840)
+    context.fillText("Streak: " + streak, 760,840)
+
 }
