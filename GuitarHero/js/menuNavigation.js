@@ -8,12 +8,16 @@ let difficultyLevels = ['EASY', 'NORMAL', 'HARD', 'INSANE']
 let defaultButtons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
 let buttons = defaultButtons;
 console.log(buttons);
-localStorage.setItem('defaultControllers', defaultButtons);
-let customControllers = '['+localStorage.getItem('customControllers')+']';
+// localStorage.setItem('defaultControllers', defaultButtons);
+let customControllers = localStorage.getItem('customControllers');
+console.log(customControllers);
+
 if(customControllers != null || customControllers != undefined){
     console.log(customControllers);
-    buttons = customControllers
+    console.log('empty');
+    buttons = customControllers.split(',')
 }
+console.log(buttons[1]);
 document.getElementById('controllerButton1').innerHTML = buttons[0]
 document.getElementById('controllerButton2').innerHTML = buttons[1]
 document.getElementById('controllerButton3').innerHTML = buttons[2]
@@ -39,6 +43,8 @@ document.getElementById('menu2').style.display = 'none'
 document.getElementById('menu3').style.display = 'none'
 document.getElementById('menu4').style.display = 'none'
 document.getElementById('startGame').style.display = 'none'
+document.getElementById('controllerTipsSingle').style.display = 'none'
+
 switchMenu0Option(selectedOption, previousSelection, menu0Selector)
 switchMenu0Option(optionMenuSelectOptions, previousOptionMenuSelectOptions, menu3Selector)
 
@@ -74,6 +80,9 @@ document.onkeyup = (k) => {
                 isMenuEnabled0 = false;
                 document.getElementById('menu0').style.display = 'none'
                 document.getElementById('menu1').style.display = 'block'
+                document.getElementById('controllerTips').style.display = 'none'
+                document.getElementById('controllerTipsSingle').style.display = 'block'
+                
                 document.getElementById('playerName').focus()
             }else if(selectedOption == 2){
                 isOptions = true
@@ -224,9 +233,9 @@ function selectTT() {
                     defaultButtons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
                     if(buttons != defaultButtons){
                         localStorage.setItem('customControllers', buttons);
-                    document.getElementById('controllerTip').innerHTML = 'New Controllers Saved!'
-                    setInterval(function() {
-                    document.getElementById('controllerTip').innerHTML = ''}, 5000)
+                        document.getElementById('controllerTip').innerHTML = 'New Controllers Saved!'
+                        setInterval(function() {
+                        document.getElementById('controllerTip').innerHTML = ''}, 5000)
                     }
                 }else{
                     k.stopPropagation();

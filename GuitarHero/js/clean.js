@@ -33,10 +33,10 @@ switch (difficulty) {
         difficultySpeed = 1000
         break;
     case '1':
-        difficultySpeed = 700
+        difficultySpeed = 800
         break;
     case '2':
-        difficultySpeed = 450
+        difficultySpeed = 416.666666666666
         break;
     case '3':
         difficultySpeed = 200
@@ -98,7 +98,7 @@ function generateNewColors() {
     // console.log(colorsList);
 }
 function createEmptyFrame() {
-    context.fillStyle = "darkgrey";
+    context.fillStyle = "#4B4C4C";
     context.fillRect(0, 0, 900, 1800);
 
     context.fillStyle = "black";
@@ -109,26 +109,41 @@ function createEmptyFrame() {
     if (multiplier === 2) {
         context.fillStyle = "black";
     context.font = "bold 22px sans-serif";
-
     }else if (multiplier === 4) {
         context.fillStyle = "MediumVioletRed";
     context.font = "bold 24px sans-serif";
-        
     }else if(multiplier === 8){
         context.fillStyle = "red";
         context.font = "bold 26px sans-serif";
-
     }
     context.fillText("X" + multiplier, 50,840)
-    context.font = "bold 22px sans-serif";
     context.fillStyle = "white";
+    
+    context.font = "bold 30px sans-serif";
 
+    if (time <10) {
+        context.fillText("00:0"+time, 410,50)
+    }else
+    context.fillText("00:"+time, 410,50)
+
+    context.font = "bold 22px sans-serif";
     context.fillText("Score:" + score, 120,840)
     context.fillText("Max Streak: " + maxStreak, 580,840)
     context.fillText("Streak: " + streak, 760,840)
+    context.fillText("Controllers: ", 50,880)
+    context.fillStyle = "red";
+    context.fillText(checkArrows(buttons[0]).toUpperCase(), 200,880)
+    context.fillStyle = "green";
+    context.fillText(checkArrows(buttons[1]), 250,880)
+    context.fillStyle = "orange";
+    context.fillText(checkArrows(buttons[2]), 300,880)
+    context.fillStyle = "blue";
+    context.fillText(checkArrows(buttons[3]), 350,880)
 }
 function createGenFrame() {
     createEmptyFrame()
+    context.fillStyle = "white";
+
     context.fillRect(100, 0, 1, 800);
     context.fillRect(200, 0, 1, 800);
     context.fillRect(300, 0, 1, 800);
@@ -146,27 +161,28 @@ function createGenFrame() {
             context.drawImage(red_dot, colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText("←", colorsList[i].axisX + 20, colorsList[i].axisY +60)
+            
+            context.fillText(checkArrows(buttons[0]), colorsList[i].axisX + 20, colorsList[i].axisY +60)
         }else if(colorsList[i].color == "green"){
             context.fillStyle = 'transparent'
             context.fillRect(colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.drawImage(green_dot, colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText("↑", colorsList[i].axisX + 37, colorsList[i].axisY +60)
+            context.fillText(checkArrows(buttons[1]), colorsList[i].axisX + 37, colorsList[i].axisY +60)
         }else if(colorsList[i].color == "orange"){
             context.fillStyle = 'transparent'
             context.fillRect(colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.drawImage(orange_dot, colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText("↓", colorsList[i].axisX + 37, colorsList[i].axisY + 60)
+            context.fillText(checkArrows(buttons[2]), colorsList[i].axisX + 37, colorsList[i].axisY + 60)
         }else {context.fillStyle = 'transparent'
             context.fillRect(colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.drawImage(blue_dot, colorsList[i].axisX, colorsList[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText("→", colorsList[i].axisX + 20, colorsList[i].axisY +60)
+            context.fillText(checkArrows(buttons[3]), colorsList[i].axisX + 20, colorsList[i].axisY +60)
         // else{
         // context.fillStyle = colorsList[i].color;
         // context.fillRect(colorsList[i].axisX, colorsList[i].axisY, 100, 100);
@@ -343,11 +359,7 @@ function resumePlaying() {
 }
 let time = 30
 function timer() {
-    if (time <10){
-        document.getElementById('timer').innerHTML = '00:0'+time
-    }else{
-    document.getElementById('timer').innerHTML = '00:'+time
-    }
+    
     if(time == 0) {
         // isGameOver = true;
         stopPlaying()
@@ -450,4 +462,18 @@ function pauseScreen() {
     context.fillText("Max Streak: " + maxStreak, 580,840)
     context.fillText("Streak: " + streak, 760,840)
 
+}
+
+function checkArrows(key){
+    if(key === "ArrowUp"){
+        return "↑"
+    }else if(key === "ArrowLeft"){
+        return "←"
+    }else if(key === "ArrowRight"){
+        return "→"
+    }else if(key === "ArrowDown"){
+        return "↓"
+    }else{
+        return key
+    }
 }

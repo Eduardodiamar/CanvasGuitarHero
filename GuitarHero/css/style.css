@@ -12,6 +12,12 @@
 .header{
     background-color: thistle;
 }
+.footer{
+  background-color: black;
+  color: plum;
+  position: absolute;
+  bottom: 0;
+}
 .main{
     background-color: thistle;
     height: 800px;
@@ -31,6 +37,14 @@
     color: thistle;
     border: solid 2px plum;
     height: 50px;
+}
+.controllerTips{
+  background-color: rgb(112, 112, 112);
+  height: 100px;
+  width: 900px;
+  color: white;
+  font-size: 22px;
+  font-family:sans-serif;
 }
 
 table {
