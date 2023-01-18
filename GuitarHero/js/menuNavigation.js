@@ -84,6 +84,8 @@ document.onkeyup = (k) => {
                 document.getElementById('controllerTipsSingle').style.display = 'block'
                 
                 document.getElementById('playerName').focus()
+            }else if(selectedOption === 1){
+                document.location.href= '../html/multiplayer.html'
             }else if(selectedOption == 2){
                 isOptions = true
                 keyLimitState = true

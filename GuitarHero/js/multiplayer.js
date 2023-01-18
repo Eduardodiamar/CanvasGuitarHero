@@ -15,11 +15,14 @@ let isGameOver = false;
 let colorsList = [];
 let colorsListP2 = [];
 
-let difficultySpeed = 400;
+//Game variables
+let difficultySpeed = 420; //Dificulty
+let time = 5     // duration
+
 let buttons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
-let buttonsP2 = ["A", "W", "S", "D"]
-let playerScore = [{score: 0, maxStreak: 0, multiplier:1}, 
-    {score: 0, maxStreak: 0, multiplier:1}]
+let buttonsP2 = ["D", "S", "W", "A"]
+let playerScore = [{score: 0, streak: 0, maxStreak: 0, multiplier:1}, 
+    {score: 0, streak: 0, maxStreak: 0, multiplier:1}]
 //Images
 red_dot = new Image()
 red_dot.src = "../images/red_dot.png"
@@ -47,61 +50,48 @@ function createEmptyFrame() {
     context.fillRect(0, 670, 1100, 130);
 
     context.fillStyle = "white";
-    context.font = "bold 20px sans-serif";
-    if (multiplier === 2) {
-        context.fillStyle = "black";
-    context.font = "bold 22px sans-serif";
-    }else if (multiplier === 4) {
-        context.fillStyle = "MediumVioletRed";
-    context.font = "bold 24px sans-serif";
-    }else if(multiplier === 8){
-        context.fillStyle = "red";
-        context.font = "bold 26px sans-serif";
-    }
-    context.fillText("X" + multiplier, 50,840)
-    context.fillStyle = "white";
+   
+  
     
     context.font = "bold 30px sans-serif";
 
-    // if (time <10) {
-    //     context.fillText("00:0"+time, 410,50)
-    // }else
-    // context.fillText("00:"+time, 410,50)
+    if (time <10) {
+        context.fillText("00:0"+time, 505,50)
+    }else
+    context.fillText("00:"+time, 505,50)
 
-    // context.font = "bold 22px sans-serif";
-    // context.fillText("Score:" + score, 120,840)
-    // context.fillText("Max Streak: " + maxStreak, 580,840)
-    // context.fillText("Streak: " + streak, 760,840)
-    // context.fillText("Controllers: ", 50,880)
-    // context.fillStyle = "red";
-    // context.fillText(checkArrows(buttons[0]).toUpperCase(), 200,880)
-    // context.fillStyle = "green";
-    // context.fillText(checkArrows(buttons[1]), 250,880)
-    // context.fillStyle = "orange";
-    // context.fillText(checkArrows(buttons[2]), 300,880)
-    // context.fillStyle = "blue";
-    // context.fillText(checkArrows(buttons[3]), 350,880)
+    context.font = "bold 28px sans-serif";
+    context.fillStyle = "red";
+    context.fillText("X" + playerScore[0].multiplier, 50,840)
+    context.fillText("Score:" + playerScore[0].score, 140,840)
+    context.fillText("Max Streak:" + playerScore[0].maxStreak, 280,840)
+    context.fillText("Streak:" + playerScore[0].streak, 480,840)
+    context.fillStyle = "blue";
+
+    context.fillText("X" + playerScore[1].multiplier, 50,880)
+    context.fillText("Score:" + playerScore[1].score, 140,880)
+    context.fillText("Max Streak:" + playerScore[1].maxStreak, 280,880)
+    context.fillText("Streak:" + playerScore[1].streak, 480,880)
+    
 }
 function createGenFrame() {
     createEmptyFrame()
     context.fillStyle = "white";
-    printTiles(colorsList)
-    printTiles(colorsListP2)
-    // context.fillRect(100, 0, 1, 800);
-    // context.fillRect(200, 0, 1, 800);
-    // context.fillRect(300, 0, 1, 800);
-    // context.fillRect(400, 0, 1, 800);
-    // context.fillRect(500, 0, 1, 800);
-    // context.fillRect(600, 0, 1, 800);
-    // context.fillRect(700, 0, 1, 800);
-    // context.fillRect(800, 0, 1, 800);
-
-   
-    
+    printTiles(colorsList,buttons)
+    printTiles(colorsListP2, buttonsP2)
+     context.fillRect(499, 0, 1, 800);
+     context.fillRect(599, 0, 1, 800);
+     context.fillRect(100, 0, 1, 800);
+     context.fillRect(200, 0, 1, 800);
+     context.fillRect(300, 0, 1, 800);
+     context.fillRect(400, 0, 1, 800);
+     context.fillRect(700, 0, 1, 800);
+     context.fillRect(800, 0, 1, 800);
+     context.fillRect(900, 0, 1, 800);
+     context.fillRect(1000, 0, 1, 800);
 }
-function printTiles(playerTiles) {
+function printTiles(playerTiles, btns) {
     for (let i = 0; i < playerTiles.length; i++) {
-
         if (playerTiles[i].color == "red") {
             context.fillStyle = 'transparent'
             context.fillRect(playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
@@ -109,27 +99,27 @@ function printTiles(playerTiles) {
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
             
-            context.fillText(checkArrows(buttons[0]), playerTiles[i].axisX + 20, playerTiles[i].axisY +60)
+            context.fillText(checkArrows(btns[0]), playerTiles[i].axisX + 20, playerTiles[i].axisY +60)
         }else if(playerTiles[i].color == "green"){
             context.fillStyle = 'transparent'
             context.fillRect(playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.drawImage(green_dot, playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText(checkArrows(buttons[1]), playerTiles[i].axisX + 37, playerTiles[i].axisY +60)
+            context.fillText(checkArrows(btns[1]), playerTiles[i].axisX + 37, playerTiles[i].axisY +60)
         }else if(playerTiles[i].color == "orange"){
             context.fillStyle = 'transparent'
             context.fillRect(playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.drawImage(orange_dot, playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText(checkArrows(buttons[2]), playerTiles[i].axisX + 37, playerTiles[i].axisY + 60)
+            context.fillText(checkArrows(btns[2]), playerTiles[i].axisX + 37, playerTiles[i].axisY + 60)
         }else {context.fillStyle = 'transparent'
             context.fillRect(playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.drawImage(blue_dot, playerTiles[i].axisX, playerTiles[i].axisY, 100, 100)
             context.fillStyle = "white";
             context.font = "bold 50px sans-serif";
-            context.fillText(checkArrows(buttons[3]), playerTiles[i].axisX + 20, playerTiles[i].axisY +60)
+            context.fillText(checkArrows(btns[3]), playerTiles[i].axisX + 20, playerTiles[i].axisY +60)
         // else{
         // context.fillStyle = colorsList[i].color;
         // context.fillRect(colorsList[i].axisX, colorsList[i].axisY, 100, 100);
@@ -181,6 +171,8 @@ function generateNewColors() {
     colorsList.push({color: numToColor, axisX: xByColor, axisY: 0, id: idCounter})
     colorsListP2.push({color: numToColor, axisX: 1000-xByColor, axisY: 0, id: idCounter})
     idCounter++;
+    console.log(colorsList);
+    console.log(colorsListP2);
 }
 
 //Move tiles
@@ -354,51 +346,90 @@ function fill(playerTiles){
         }
         
     }
-    function scoreUpP2() { 
-        if (isPlaying) {
-            if(once == 1) {
-                streak++
-                if (streak > maxStreak) maxStreak = streak;
-                if (streak <10) {
-                    multiplier = 1;
-                }else if(streak >=10 && streak <20){
-                    multiplier = 2;
-                    console.log('Multi ->'+multiplier);
+    
+function timer() {
+    
+    if(time == 0) {
+        // isGameOver = true;
+        stopPlaying()
+        isPlaying = false;
         
-                }else if (streak >=20 && streak <40) {
-                    multiplier = 4;
-                    console.log('Multi ->'+multiplier);
-                    
-                
-                }else if (streak >=40) {
-                    multiplier = 8;
-                    console.log('Multi ->'+multiplier);
-                    
-                }
-                score+= 1 * multiplier;
-                once ++;
-                colorsList.shift()
-            }
-            // document.getElementById('score').innerHTML= 'Score: '+score
-            // document.getElementById('multiplier').innerHTML= 'Multiplier: x'+multiplier
-            // document.getElementById('streak').innerHTML= 'Streak: '+streak
-            // document.getElementById('maxStreak').innerHTML= 'Max Streak: '+maxStreak
-            
-        }
-        
+        endScreen()
     }
-    function scoreDownP2() {
-        if(isPlaying){
-            if(once == 1) {
-                score-= 1;
-                streak = 0;
-                multiplier = 1
-                once ++;
-            }
-            document.getElementById('score').innerHTML= 'Score: '+score
-            document.getElementById('streak').innerHTML= 'Streak: '+streak
-            document.getElementById('multiplier').innerHTML= 'Multiplier: x'+multiplier
-        
-        }
-        
+    time--
+
+}
+setInterval(timer,1000)
+
+function stopPlaying() {
+    
+    pauseScreen()
+    isPaused = true
+
+    // Get a reference to the last interval + 1
+    const interval_id = window.setInterval(function () { }, Number.MAX_SAFE_INTEGER);
+    // Clear any timeout/interval up to that id
+    for (let i = 1; i < interval_id; i++) {
+        window.clearInterval(i);
     }
+}
+
+function endScreen() {
+    delCanvas()
+    createEmptyFrame()
+    context.fillStyle = "plum";
+    context.strokeStyle = "white";
+
+    context.fillRect(350, 200, 400, 400);
+    context.fillStyle = "white";
+
+    playerScore[0].score > playerScore[1].score? 
+    context.fillText("PLAYER 1 WON", 430,352):
+    context.fillText("PLAYER 2 WON", 430,352)
+    
+    context.fillRect(450, 480, 80, 50);
+    context.fillRect(550, 480, 80, 50);
+    context.fillStyle = "plum";
+    context.font = "bold 24px sans-serif";
+
+    context.fillText("ESC", 465,512)
+    context.fillText("R", 580,512)
+
+    context.fillText("ESC - Return to home Screen", 250,710)
+    context.fillText("R - Restart Game", 250,735)
+}
+function pauseScreen() {
+    delCanvas()
+    createEmptyFrame()
+    context.fillStyle = "plum";
+    context.strokeStyle = "white";
+
+    context.fillRect(250, 200, 400, 300);
+    context.fillStyle = "white";
+    context.fillRect(310, 400, 80, 50);
+    context.fillRect(410, 400, 80, 50);
+    context.fillRect(510, 400, 80, 50);
+    context.font = "bold 48px sans-serif";
+    context.fillText("PAUSE", 370,270)
+    context.fillStyle = "white";
+    context.fillStyle = "plum";
+    context.font = "bold 24px sans-serif";
+
+    context.fillText("P", 342,432)
+    context.fillText("R", 442,432)
+    context.fillText("ESC", 525,432)
+
+    context.fillText("P - Resume Game", 250,710)
+    context.fillText("R - Restart Game", 250,735)
+    context.fillText("ESC - Return to home Screen", 250,760)
+
+    context.fillStyle = "white";
+    context.font = "bold 22px sans-serif";
+
+    context.fillText("X" + multiplier, 50,840)
+    context.fillText("Score:" + score, 120,840)
+
+    context.fillText("Max Streak: " + maxStreak, 580,840)
+    context.fillText("Streak: " + streak, 760,840)
+
+}
