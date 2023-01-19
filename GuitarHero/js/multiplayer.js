@@ -11,6 +11,7 @@ let maxStreakP2 = 0;
 let once = 1; // functional condition 
 let idCounter = 0; // generated tiles id
 let isPlaying = true;
+let isPaused = false;
 let isGameOver = false;
 let colorsList = [];
 let colorsListP2 = [];
@@ -76,19 +77,25 @@ function createEmptyFrame() {
 }
 function createGenFrame() {
     createEmptyFrame()
-    context.fillStyle = "white";
     printTiles(colorsList,buttons)
     printTiles(colorsListP2, buttonsP2)
-     context.fillRect(499, 0, 1, 800);
-     context.fillRect(599, 0, 1, 800);
+
+    context.fillStyle = "red";
+
      context.fillRect(100, 0, 1, 800);
      context.fillRect(200, 0, 1, 800);
      context.fillRect(300, 0, 1, 800);
      context.fillRect(400, 0, 1, 800);
+     context.fillRect(499, 0, 1, 800);
+     context.fillStyle = "blue";
+
+     context.fillRect(599, 0, 1, 800);
      context.fillRect(700, 0, 1, 800);
      context.fillRect(800, 0, 1, 800);
      context.fillRect(900, 0, 1, 800);
      context.fillRect(1000, 0, 1, 800);
+
+
 }
 function printTiles(playerTiles, btns) {
     for (let i = 0; i < playerTiles.length; i++) {
@@ -222,14 +229,15 @@ function fill(playerTiles){
         } else if (e.key.toUpperCase() === buttonsP2[3]) {
             buttonPressed(8);
         }
-        // else if (e.key ==='Escape'&& (!isPlaying || isPaused) ) {
-        //     buttonPressed(5);
-        // }else if(e.key === 'p' || e.key === 'P')
-        // {
-        //     buttonPressed(6);
-        // }else if((e.key === 'r' || e.key === 'R') && (!isPlaying || isPaused)){
-        //     buttonPressed(7);
-        // }
+        else if (e.key ==='Escape'&& (!isPlaying || isPaused) ) {
+            buttonPressed(9);
+        }else if(e.key === 'p' || e.key === 'P')
+        {
+            console.log('PAUSA');
+            buttonPressed(10);
+        }else if((e.key === 'r' || e.key === 'R') && (!isPlaying || isPaused)){
+            buttonPressed(11);
+        }
     }
     function buttonPressed(button){
         switch (button) {
@@ -282,15 +290,15 @@ function fill(playerTiles){
                       })
                       condition8? scoreUp(1,colorsListP2): scoreDown(1)
                 break;
-            // case 5:
-            //     document.location.href= '../html/tempIndex.html'
-            //     break;
-            // case 6:
-            //     !isPaused? stopPlaying() : resumePlaying()
-            //     break;
-            // case 7:
-            //     location.reload()
-            //     break;
+            case 9:
+                document.location.href= '../html/tempIndex.html'
+                break;
+            case 10:
+                !isPaused? stopPlaying() : resumePlaying()
+                break;
+            case 11:
+                location.reload()
+                break;
             default:
                 //empty
                 break;
@@ -373,7 +381,17 @@ function stopPlaying() {
         window.clearInterval(i);
     }
 }
+function resumePlaying() {
 
+    if(isPlaying){
+    isPaused = false
+
+        setInterval(generateNewColors,difficultySpeed);
+        setInterval(moveRandomTiles,10)
+        setInterval(timer,1000)
+    }
+    
+}
 function endScreen() {
     delCanvas()
     createEmptyFrame()
@@ -382,11 +400,14 @@ function endScreen() {
 
     context.fillRect(350, 200, 400, 400);
     context.fillStyle = "white";
+    if(playerScore[0].score != playerScore[1].score){
+        playerScore[0].score > playerScore[1].score? 
+        context.fillText("PLAYER 1 WON", 440,352):
+        context.fillText("PLAYER 2 WON", 440,352)
+    }else {
+        context.fillText("IT'S A TIE!", 480,352)
 
-    playerScore[0].score > playerScore[1].score? 
-    context.fillText("PLAYER 1 WON", 430,352):
-    context.fillText("PLAYER 2 WON", 430,352)
-    
+    }
     context.fillRect(450, 480, 80, 50);
     context.fillRect(550, 480, 80, 50);
     context.fillStyle = "plum";
@@ -404,20 +425,20 @@ function pauseScreen() {
     context.fillStyle = "plum";
     context.strokeStyle = "white";
 
-    context.fillRect(250, 200, 400, 300);
+    context.fillRect(350, 200, 400, 300);
     context.fillStyle = "white";
-    context.fillRect(310, 400, 80, 50);
     context.fillRect(410, 400, 80, 50);
     context.fillRect(510, 400, 80, 50);
+    context.fillRect(610, 400, 80, 50);
     context.font = "bold 48px sans-serif";
-    context.fillText("PAUSE", 370,270)
+    context.fillText("PAUSE", 470,270)
     context.fillStyle = "white";
     context.fillStyle = "plum";
     context.font = "bold 24px sans-serif";
 
-    context.fillText("P", 342,432)
-    context.fillText("R", 442,432)
-    context.fillText("ESC", 525,432)
+    context.fillText("P", 442,432)
+    context.fillText("R", 542,432)
+    context.fillText("ESC", 625,432)
 
     context.fillText("P - Resume Game", 250,710)
     context.fillText("R - Restart Game", 250,735)
