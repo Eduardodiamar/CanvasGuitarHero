@@ -2,7 +2,24 @@ let menu0Selector = ['menu0Option0', 'menu0Option1', 'menu0Option2', 'menu0Optio
 let menu3Selector = ['menu3Option1', 'menu3Option2', 'menu3Option3', 'menu3Option4','menu3Option5','menu3Option6'] // OPTIONS
 let controllersIds = ['controllerButton1', 'controllerButton2', 'controllerButton3', 'controllerButton4']
 let difficultyLevels = ['EASY', 'NORMAL', 'HARD', 'INSANE']
-let styleColors = ['#22333B', '#0A0908', '#F2F4F3', '#A9927D', 'plum']
+
+//styles
+let stylePalettes = [['#22333B', '#0A0908', '#F2F4F3', '#A9927D', 'plum'], 
+['#58504A', '#58504A', '#D3C4E3', '#89DAFF', '#8F95D3'], ]
+let styleColors = stylePalettes[0]
+document.getElementById("menu0").style.backgroundColor = styleColors[3]
+document.getElementById("menu0Option0").style.backgroundColor = styleColors[2]
+document.getElementById("menu0Option1").style.backgroundColor = styleColors[2]
+document.getElementById("menu0Option2").style.backgroundColor = styleColors[2]
+document.getElementById("menu0Option3").style.backgroundColor = styleColors[2]
+
+
+document.getElementById("footer").style.backgroundColor = styleColors[1]
+document.getElementById("header").style.backgroundColor = styleColors[1]
+document.getElementById("controllerTips").style.backgroundColor = styleColors[4]
+
+
+
 //User controllers (Gameplay)
 
 let defaultButtons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
