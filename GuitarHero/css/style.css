@@ -1,3 +1,13 @@
+:root{
+  --color1: #22333B;
+  --color2: #0A0908;
+  --color3: #F2F4F3;
+  --color4: #A9927D; 
+  --color5: #5E503F;
+}
+.container-fluid{
+  background-color: #22333B;
+}
 .dev{
     position: absolute;
     top: 5%;
@@ -10,24 +20,26 @@
 /* MENU STYLES  */
 
 .header{
-    background-color: thistle;
+    background-color: var(--color2);
+  color: var(--color4);
+    
 }
 .footer{
-  background-color: black;
-  color: plum;
+  background-color: var(--color2);
+  color: var(--color4);
 
 }
 .main{
-    background-color: thistle;
+    background-color: var(--color4);
     height: 800px;
     width: 900px;
-    color: white;
+    color: var(--color2)
 }
 .optionMenu{
     font-size: 1.5em;
-    background-color: whitesmoke;
-    color: thistle;
-    border: solid 2px plum;
+    background-color: var(--color3);
+    color: var(--color2);
+    border: solid 2px  var(--color5);
     height: 50px;
 }
 .controllersGuide{   
@@ -38,7 +50,7 @@
     height: 50px;
 }
 .controllerTips{
-  background-color: rgb(112, 112, 112);
+  background-color: var(--color5);
   height: 100px;
   width: 900px;
   color: white;
@@ -63,8 +75,8 @@ table {
   th {
     
     text-align: center;
-    background-color: black
+    background-color: var(--color5)
   }
   tr:hover {
-    background-color: #000000;
+    background-color: var(--color3);
   }

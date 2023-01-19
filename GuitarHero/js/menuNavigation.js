@@ -2,7 +2,7 @@ let menu0Selector = ['menu0Option0', 'menu0Option1', 'menu0Option2', 'menu0Optio
 let menu3Selector = ['menu3Option1', 'menu3Option2', 'menu3Option3', 'menu3Option4','menu3Option5','menu3Option6'] // OPTIONS
 let controllersIds = ['controllerButton1', 'controllerButton2', 'controllerButton3', 'controllerButton4']
 let difficultyLevels = ['EASY', 'NORMAL', 'HARD', 'INSANE']
-
+let styleColors = ['#22333B', '#0A0908', '#F2F4F3', '#A9927D', 'plum']
 //User controllers (Gameplay)
 
 let defaultButtons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
@@ -43,22 +43,21 @@ document.getElementById('menu2').style.display = 'none'
 document.getElementById('menu3').style.display = 'none'
 document.getElementById('menu4').style.display = 'none'
 document.getElementById('startGame').style.display = 'none'
-document.getElementById('controllerTipsSingle').style.display = 'none'
 
 switchMenu0Option(selectedOption, previousSelection, menu0Selector)
 switchMenu0Option(optionMenuSelectOptions, previousOptionMenuSelectOptions, menu3Selector)
 
 function switchMenu0Option(newSelect, oldSelect, menuSelector) {
     // new color
-    document.getElementById(menuSelector[newSelect]).style.backgroundColor = "plum"
+    document.getElementById(menuSelector[newSelect]).style.backgroundColor = styleColors[4]
     document.getElementById(menuSelector[newSelect]).style.color = "white"
     document.getElementById(menuSelector[newSelect]).style.border = "solid 2px white"
 
     // back to default color 
     if (newSelect != oldSelect) {
-        document.getElementById(menuSelector[oldSelect]).style.backgroundColor = "whitesmoke"
-        document.getElementById(menuSelector[oldSelect]).style.color = "thistle"
-        document.getElementById(menuSelector[oldSelect]).style.border = "solid 2px plum"
+        document.getElementById(menuSelector[oldSelect]).style.backgroundColor = styleColors[2]
+        document.getElementById(menuSelector[oldSelect]).style.color = styleColors[1]
+        document.getElementById(menuSelector[oldSelect]).style.border = "solid 2px" + styleColors[4]
     }
 
 
@@ -80,9 +79,6 @@ document.onkeyup = (k) => {
                 isMenuEnabled0 = false;
                 document.getElementById('menu0').style.display = 'none'
                 document.getElementById('menu1').style.display = 'block'
-                document.getElementById('controllerTips').style.display = 'none'
-                document.getElementById('controllerTipsSingle').style.display = 'block'
-                
                 document.getElementById('playerName').focus()
             }else if(selectedOption === 1){
                 document.location.href= '../html/multiplayer.html'
@@ -297,15 +293,15 @@ function key( newButton) {
 }
 
 function dificultySelector(key) {
-    document.getElementById(key).style.backgroundColor = "plum"
+    document.getElementById(key).style.backgroundColor = styleColors[4]
     document.getElementById(key).style.color = "white"
-    document.getElementById(key).style.border = "solid 2px white"
+    document.getElementById(key).style.border = "solid 2px"+ styleColors[2]
 
     // back to default color 
     setTimeout(function () {
-        document.getElementById(key).style.backgroundColor = "whitesmoke"
-        document.getElementById(key).style.color = "thistle"
-        document.getElementById(key).style.border = "solid 2px plum"
+        document.getElementById(key).style.backgroundColor = styleColors[2]
+        document.getElementById(key).style.color = styleColors[1]
+        document.getElementById(key).style.border = "solid 2px"+ styleColors[1]
     }, 100);
 }
 
