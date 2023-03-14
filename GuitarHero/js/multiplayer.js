@@ -18,7 +18,7 @@ let colorsListP2 = [];
 
 //Game variables
 let difficultySpeed = 420; //Dificulty
-let time = 5     // duration
+let time = 30     // duration
 
 let buttons = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"]
 let buttonsP2 = ["D", "S", "W", "A"]

@@ -308,10 +308,6 @@ function scoreUp() {
             once ++;
             colorsList.shift()
         }
-        document.getElementById('score').innerHTML= 'Score: '+score
-        document.getElementById('multiplier').innerHTML= 'Multiplier: x'+multiplier
-        document.getElementById('streak').innerHTML= 'Streak: '+streak
-        document.getElementById('maxStreak').innerHTML= 'Max Streak: '+maxStreak
         
     }
     

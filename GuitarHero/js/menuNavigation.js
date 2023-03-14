@@ -4,19 +4,21 @@ let controllersIds = ['controllerButton1', 'controllerButton2', 'controllerButto
 let difficultyLevels = ['EASY', 'NORMAL', 'HARD', 'INSANE']
 
 //styles
-let stylePalettes = [['#22333B', '#0A0908', '#F2F4F3', '#A9927D', 'plum'], 
-['#58504A', '#58504A', '#D3C4E3', '#89DAFF', '#8F95D3'], ]
+let stylePalettes = [['#22333B', '#0A0908', '#F2F4F3', '#A9927D', '#5E503F'], 
+['#58504A', '#58504A', '#D3C4E3', '#89DAFF', '#8F95D3'],[
+   '#F1FAEE','#E63946' ,'#A8DADC','#457B9D','#1D3557'] ]
 let styleColors = stylePalettes[0]
-document.getElementById("menu0").style.backgroundColor = styleColors[3]
-document.getElementById("menu0Option0").style.backgroundColor = styleColors[2]
-document.getElementById("menu0Option1").style.backgroundColor = styleColors[2]
-document.getElementById("menu0Option2").style.backgroundColor = styleColors[2]
-document.getElementById("menu0Option3").style.backgroundColor = styleColors[2]
-
-
-document.getElementById("footer").style.backgroundColor = styleColors[1]
-document.getElementById("header").style.backgroundColor = styleColors[1]
+ document.getElementById("menu0").style.backgroundColor = styleColors[3]
 document.getElementById("controllerTips").style.backgroundColor = styleColors[4]
+
+// // document.getElementById("menu0Option0").style.backgroundColor = styleColors[2]
+// // document.getElementById("menu0Option1").style.backgroundColor = styleColors[2]
+// // document.getElementById("menu0Option2").style.backgroundColor = styleColors[2]
+// // document.getElementById("menu0Option3").style.backgroundColor = styleColors[2]
+
+
+//  document.getElementById("footer").style.backgroundColor = styleColors[1]
+//  document.getElementById("header").style.backgroundColor = styleColors[1]
 
 
 
